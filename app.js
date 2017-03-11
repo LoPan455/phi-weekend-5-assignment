@@ -3,7 +3,7 @@ var app = express();
 var path = require('path');
 var router = require('./server/routes/routes.js')
 
-app.use('/inboundURLbase',router)
+app.use('/data',router)
 
 // Serve back static files
 app.use(express.static(path.join(__dirname, './public')));
