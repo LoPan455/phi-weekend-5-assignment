@@ -1,21 +1,22 @@
 myApp.factory('DataFactory',['$http',function($http) {
   console.log('Data Factory running');
 
-  var employeeData = { employees:[] };
+  var employeeList = { list:[] };
   getEmployees();
-  console.log('employeeData is: ',employeeData);
+  console.log('employeeList is: ',employeeList);
 
   function getEmployees(){
     $http({
       method: 'GET',
       url: '/data/employees'
     }).then(function(response){
-      employeeData.employees = response.data;
+      employeeList.list = response.data;
     })
   }
 
 
   return {
-
+    getEmployees: getEmployees,
+    employeeList: employeeList,
   }
 }]);

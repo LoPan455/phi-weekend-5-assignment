@@ -12,7 +12,7 @@ var pool = new pg.Pool(config);
   // sample GET request
 
   router.get('/employees', function(req, res) {
-  console.log('hit the / route');
+  console.log('hit the /data/employees route');
   pool.connect(function(err, client, done) {
     if(err){
       console.log(err);

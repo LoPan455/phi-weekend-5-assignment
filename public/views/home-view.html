@@ -1,4 +1,25 @@
 <body ng-controller="HomeController">
-  <h2>This is the blank home-view.html file</h2>
-  {{home.testMessage}}
+  <h2>Employee List</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Employee ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Title</th>
+        <th>Annual Salary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat='employee in home.employeeList.list'>
+        <td>{{employee.employee_id}}</td>
+        <td>{{employee.first_name}}</td>
+        <td>{{employee.last_name}}</td>
+        <td>{{employee.title}}</td>
+        <td>{{employee.annual_salary}}</td>
+      </tr>
+    </tbody>
+  </table>
+
 </body>
