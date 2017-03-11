@@ -1,5 +1,18 @@
 <body ng-controller="HomeController">
-  <h2>Employee List</h2>
+  <section id="new-employee-form-section">
+    <h2>Add New Employee</h2>
+    <form id="new-employee=form">
+      <label>Employee ID<input ng-model="home.newEmployee.employee_id" type="number" placeholder="Employee ID" />{{newEmployee.employee_id}}</Label>
+      <label>Employee First Name<input ng-model="home.newEmployee.first_name" type="text" placeholder="Employee First Name" /></Label>
+      <label>Employee Last Name<input ng-model="home.newEmployee.last_name" type="text" placeholder="Employee Last Name" /></Label>
+      <label>Employee Title<input ng-model="home.newEmployee.title" type="text" placeholder="Employee Title" /></Label>
+      <label>Employee Annual Salary<input  ng-model="home.newEmployee.annual_salary" type="number" placeholder="Employee Annual Salary" /></Label>
+    </form>
+    
+  </section>
+
+  <section id="employee-list">
+    <h2>Employee List</h2>
 
   <table class="table">
     <thead>
