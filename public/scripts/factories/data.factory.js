@@ -1,17 +1,18 @@
 myApp.factory('DataFactory',['$http',function($http) {
-  console.log('Data Factory running');
 
-  var employeeList = { list:[] };
   getEmployees();
-  console.log('employeeList is: ',employeeList);
+  var employeeList = { list: [] };
+  var monthlySalaryCost = { cost: '' }
 
-  function getEmployees(){
-    $http({
-      method: 'GET',
-      url: '/data/employees'
-    }).then(function(response){
-      employeeList.list = response.data;
-    })
+  function getEmployees() {
+      $http({
+          method: 'GET',
+          url: '/data/employees'
+      }).then(function(response) {
+          employeeList.list = response.data;
+          monthlySalaryCost.cost = calculateMonthlySalaryCost(response.data)
+          console.log('monthlySalaryCost is now: ',monthlySalaryCost);
+      })
   }
 
   function addNewEmployee(employee){
@@ -26,14 +27,14 @@ myApp.factory('DataFactory',['$http',function($http) {
     })
   }
 
-  function employeeActivate(employeeId) {
-  $http({
-    method: 'PUT',
-    url: '/data/activate/' + employeeId
-  }).then(function(response) {
-    getEmployees();
-  });
-}
+// function employeeActivate(employeeId) {
+//     $http({
+//         method: 'PUT',
+//         url: '/data/activate/' + employeeId
+//     }).then(function(response) {
+//             getEmployees();
+//         )}
+//     });
 
 function employeeDeactivate(employeeId){
   $http({
@@ -44,10 +45,21 @@ function employeeDeactivate(employeeId){
   });
 }
 
+function calculateMonthlySalaryCost(array) {
+  var totalSalaryCost = 0; //holds the aggregate value of all employee annual salaries
+  // for each employee object returned, increment the total salary spend
+  //by each employee's salary VALUES
+  for (var i = 0; i < array.length; i++) {
+    totalSalaryCost += parseFloat(array[i].annual_salary);
+  }
+    return totalSalaryCost / 12;
+};
+
 
   return {
     getEmployees: getEmployees,
     employeeList: employeeList,
-    addNewEmployee: addNewEmployee
-  }
+    addNewEmployee: addNewEmployee,
+    monthlySalaryCost: monthlySalaryCost
+  } // end Facotry returns
 }]);

@@ -9,12 +9,9 @@
       <label>Employee Annual Salary<input  ng-model="home.newEmployeeObject.annual_salary" type="number" placeholder="Employee Annual Salary" /></Label>
       <button ng-click="home.addNewEmployee()">Submit</button>
     </form>
-
   </section>
-
   <section id="employee-list">
     <h2>Employee List</h2>
-
   <table class="table">
     <thead>
       <tr>
@@ -35,5 +32,7 @@
       </tr>
     </tbody>
   </table>
-
+  <section id="monthly-cost">
+    <h2>Monthly Cost for Employee Salaries: <span>${{home.monthlySalaryCost.cost}}</span></h2>
+  </section>
 </body>
