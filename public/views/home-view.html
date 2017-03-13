@@ -21,6 +21,8 @@
         <th>Title</th>
         <th>Annual Salary</th>
         <th>Delete</th>
+        <th>Active</th>
+        <th
       </tr>
     </thead>
     <tbody>
@@ -28,9 +30,10 @@
         <td>{{employee.employee_id}}</td>
         <td>{{employee.first_name}}</td>
         <td>{{employee.last_name}}</td>
-        <td>{{employee.title}}</td>
+        <td>{{employee.employee_title}}</td>
         <td>{{employee.annual_salary}}</td>
         <td><button ng-click="home.deleteEmployee(employee.employee_id)">Delete</button></td>
+        <td><input ng-model="employee.is_active" type="checkbox" ng-click="home.activeBoxClicked(employee.employee_id)"/></td>
       </tr>
     </tbody>
   </table>

@@ -26,7 +26,7 @@ myApp.factory('DataFactory',['$http',function($http) {
   }
 
   function deleteEmployee(id){
-    console.log('addNewEmployee() in the Data Factory has been reached');
+    console.log('deleteEmployee() in the Data Factory has been reached');
     $http({
       method: 'DELETE',
       url: '/data/delete/' + id,
@@ -39,23 +39,18 @@ myApp.factory('DataFactory',['$http',function($http) {
 
 
 
-// function employeeActivate(employeeId) {
-//     $http({
-//         method: 'PUT',
-//         url: '/data/activate/' + employeeId
-//     }).then(function(response) {
-//             getEmployees();
-//         )}
-//     });
+  function toggleActiveStatus(id) {
+    console.log('hit toggleActiveStatus() in the factory');
+    $http({
+        method: 'PUT',
+        url: '/data/change/' + id,
+    }).then(function(response) {
 
-function employeeDeactivate(employeeId){
-  $http({
-    method: 'PUT',
-    url: '/data/deactivate/' + employeeId
-  }).then(function(response) {
-    getEmployees();
-  });
-}
+        getEmployees();
+    })
+  }
+
+
 
 
 
@@ -64,7 +59,8 @@ function employeeDeactivate(employeeId){
     getEmployees: getEmployees,
     employeeList: employeeList,
     addNewEmployee: addNewEmployee,
-    deleteEmployee: deleteEmployee
+    deleteEmployee: deleteEmployee,
+    toggleActiveStatus: toggleActiveStatus
     // monthlySalaryCost: monthlySalaryCost
   } // end Facotry returns
 }]);

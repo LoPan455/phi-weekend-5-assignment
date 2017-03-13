@@ -19,7 +19,7 @@ router.get('/employees', function(req, res) {
             res.sendStatus(500);
         } else {
             // SELECT * FROM task;
-            client.query('SELECT * FROM employees;', function(err, result) {
+            client.query('SELECT * FROM employees ORDER BY employee_id;', function(err, result) {
                 done(); // close the connection db
                 if (err) {
                     console.log(err);
@@ -89,50 +89,31 @@ router.delete('/delete/:id', function(req, res) {
 });
 
 // PUT reqeust to change employee activation status
-router.put('/data/activate/', function(req, res) {
-    console.log('hit the /data/activate route');
+router.put('/change/:id', function(req, res) {
+    console.log('hit the /change route');
+    var employeeToFlipStatus = req.params.id;
+    console.log('we will flip the status of employee_id', employeeToFlipStatus);
     pool.connect(function(err, client, done) {
         if (err) {
             console.log(err);
             res.sendStatus(500);
         } else {
-            client.query('database query;', function(err, result) {
-                done();
-                if (err) {
-                    console.log(err);
-                    res.sendStatus(500);
-                } else {
-                    console.log(result.rows);
-                    res.sendStatus(200);
-                }
-            })
+            client.query('UPDATE employees ' +
+                'SET is_active = NOT is_active ' +
+                'WHERE employee_id = $1;', [employeeToFlipStatus],
+                function(err, result) {
+                    done(); // close the connection db
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500); // the world exploded
+                    } else {
+                        console.log(result.rows);
+                        res.sendStatus(200);
+                    }
+                });
         }
-    })
+    });
 });
-
-// PUT reqeust to change employee activation status
-router.put('/data/deactivate/', function(req, res) {
-    console.log('hit the /data/deactivate route');
-    pool.connect(function(err, client, done) {
-        if (err) {
-            console.log(err);
-            res.sendStatus(500);
-        } else {
-            client.query('database query;', function(err, result) {
-                done();
-                if (err) {
-                    console.log(err);
-                    res.sendStatus(500);
-                } else {
-                    console.log(result.rows);
-                    res.sendStatus(200);
-                }
-            })
-        }
-    })
-});
-
-
 
 
 module.exports = router;
