@@ -1,7 +1,9 @@
 myApp.factory('DataFactory',['$http',function($http) {
 
   getEmployees();
+  getBudgetCeiling();
   var employeeList = { list: [] };
+  var pastBudgets = { pastBudgets: [] };
 
 
   function getEmployees() {
@@ -17,7 +19,7 @@ myApp.factory('DataFactory',['$http',function($http) {
     console.log('addNewEmployee() in the Data Factory has been reached');
     $http({
       method: 'POST',
-      url: '/data/addNew',
+      url: '/data/addNewEmployee',
       data: employee
     }).then(function(response){
       console.log('response from server on Factory for addNewEmployee() is: ',response);
@@ -37,8 +39,6 @@ myApp.factory('DataFactory',['$http',function($http) {
     })
   }
 
-
-
   function toggleActiveStatus(id) {
     console.log('hit toggleActiveStatus() in the factory');
     $http({
@@ -50,17 +50,37 @@ myApp.factory('DataFactory',['$http',function($http) {
     })
   }
 
+  function getBudgetCeiling() {
+      $http({
+          method: 'GET',
+          url: '/data/budget'
+      }).then(function(response) {
+          console.log('reponse data for getBudgetCeiling() is: ',response.data);
+          pastBudgets.pastBudgets = response.data;
+          console.log(pastBudgets);
+      })
+  }
 
-
-
-
+  function setNewBudget(amount){
+    console.log('setNewBudget() in the Data Factory has been reached',amount);
+    $http({
+      method: 'POST',
+      url: '/data/setNewBudget',
+      data: amount
+    }).then(function(response){
+      console.log('response from server on Factory for setNewBudget() is: ',response);
+      getBudgetCeiling();
+    })
+  }
 
   return {
     getEmployees: getEmployees,
     employeeList: employeeList,
     addNewEmployee: addNewEmployee,
     deleteEmployee: deleteEmployee,
-    toggleActiveStatus: toggleActiveStatus
-    // monthlySalaryCost: monthlySalaryCost
+    toggleActiveStatus: toggleActiveStatus,
+    pastBudgets: pastBudgets,
+    setNewBudget: setNewBudget
+
   } // end Facotry returns
 }]);

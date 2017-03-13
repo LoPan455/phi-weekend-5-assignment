@@ -32,25 +32,42 @@ router.get('/employees', function(req, res) {
         }
     });
 });
+router.get('/budget',function(req,res) {
+  console.log('/budget route hit');
+  pool.connect(function(err, client, done) {
+      if (err) {
+          console.log(err);
+          res.sendStatus(500);
+      } else {
+          // SELECT * FROM task;
+          client.query('SELECT * FROM budget ORDER BY date_set ASC;', function(err, result) {
+              done(); // close the connection db
+              if (err) {
+                  console.log(err);
+                  res.sendStatus(500); // the world exploded
+              } else {
+                  console.log(result.rows);
+                  res.status(200).send(result.rows);
+              }
+          });
+      }
+  });
+});
 
-// POST request to add a new employee
-router.post('/addNew', function(req, res) {
-    console.log('hit the /data/addNew route');
-    var employeeObject = req.body;
-    console.log(employeeObject);
+
+router.post('/setNewBudget', function(req, res) {
+    console.log('hit the /data/setBudget route');
+    var budgetObject = req.body;
+    console.log(budgetObject);
     pool.connect(function(err, client, done) {
         if (err) {
             console.log(err);
             res.sendStatus(500);
         } else {
-
-            client.query('INSERT INTO employees (' +
-              'first_name,' +
-              'last_name,' +
-              'employee_id,' +
-              'employee_title,' +
-              'annual_salary)' +
-            'VALUES  ($1,$2,$3,$4,$5);',[employeeObject.first_name, employeeObject.last_name, employeeObject.employee_id, employeeObject.employee_title, employeeObject.annual_salary], function(err, result) {
+            client.query('INSERT INTO budget (' +
+              'date_set,' +
+              'budget_amount) ' +
+              'VALUES  ($1,$2);',[current_date,budgetObject.value], function(err, result) {
                 done(); // close the connection db
                 if (err) {
                     console.log(err);
@@ -60,6 +77,36 @@ router.post('/addNew', function(req, res) {
                     res.status(200).send(result.rows);
                 }
             });
+        }
+    });
+});
+// POST request to add a new employee
+router.post('/addNewEmployee', function(req, res) {
+    console.log('hit the /data/addNewEmployee route');
+    var employeeObject = req.body;
+    console.log(employeeObject);
+    pool.connect(function(err, client, done) {
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        } else {
+            client.query('INSERT INTO employees (' +
+                'first_name,' +
+                'last_name,' +
+                'employee_id,' +
+                'employee_title,' +
+                'annual_salary)' +
+                'VALUES  ($1,$2,$3,$4,$5);', [employeeObject.first_name, employeeObject.last_name, employeeObject.employee_id, employeeObject.employee_title, employeeObject.annual_salary],
+                function(err, result) {
+                    done(); // close the connection db
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500); // the world exploded
+                    } else {
+                        console.log(result.rows);
+                        res.status(200).send(result.rows);
+                    }
+                });
         }
     });
 });
@@ -114,6 +161,8 @@ router.put('/change/:id', function(req, res) {
         }
     });
 });
+
+
 
 
 module.exports = router;

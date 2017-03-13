@@ -9,10 +9,10 @@ myApp.config(['$routeProvider', function($routeProvider) {
           controller: 'HomeController',
           controllerAs: 'home'
         })
-        .when ('/view-1', {
-            templateUrl: '/views/view_1.html',
-            controller: 'OneController',
-            controllerAs: 'one'
+        .when ('/budget', {
+            templateUrl: '/views/budget-view.html',
+            controller: 'BudgetController',
+            controllerAs: 'bc'
         })
         .when ('/view-2', {
             templateUrl: '/views/view_2.html',

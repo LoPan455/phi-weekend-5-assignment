@@ -1,0 +1,27 @@
+<body ng-controller="BudgetController">
+  <h2>Employee Salary Budget</h2>
+  <form>
+    <h3>Please Enter the Monthly Budget Ceiling</h3>
+    <label>Monthly Budget Ceiling: <input ng-model="bc.newCeiling.value" type="number" /><button ng-click="bc.setNewBudget(bc.newCeiling)">Set</button></label>
+    <h3>Budget Currently Set as: <span>{{bc.newCeiling.value}}</span></h3>
+  </form>
+  <section id="budget-history">
+    <h3>Budget History</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Budget Ceiling Amount</th>
+        </tr>
+        <tbody>
+          <tr ng-repeat="thing in bc.pastBudgets.pastBudgets">
+            <td>{{thing.date_set}}</td>
+            <td>{{thing.budget_amount}}</td>
+          </tr>
+        </tbody>
+      </thead>
+    </table>
+  </section>
+
+
+</body>
