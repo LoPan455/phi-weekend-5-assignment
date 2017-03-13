@@ -3,6 +3,7 @@ myApp.controller('HomeController',['DataFactory', function(DataFactory) {
   self.employeeList = DataFactory.employeeList;
   self.newEmployeeObject = {};
   self.monthlySalaryCost = DataFactory.monthlySalaryCost;
+  self.currentBudgetMax = DataFactory.pastBudgets;
   self.addNewEmployee = function(){
     console.log('Controller addNewEmployee() is being called');
     DataFactory.addNewEmployee(self.newEmployeeObject);
@@ -30,11 +31,23 @@ myApp.controller('HomeController',['DataFactory', function(DataFactory) {
     DataFactory.toggleActiveStatus(id);
   }
 
-self.getCurrentBudgetMax = function {
-  // get the array of past budget figures
+self.getCurrentBudgetMax = function() {
+  // make an array of past budget figures
+  var budgetFiguresArray = [];
+  for (var i = 0; i < self.currentBudgetMax.pastBudgets.length; i++) {
+      budgetFiguresArray.push(self.currentBudgetMax.pastBudgets[i].budget_amount)
+    }
+  if (budgetFiguresArray.shift() > self.monthlySalaryCostFigure()) {
+
+    }
+    return 'true';
+  }
+
+
+
   //get the last (or the first value)
   //compare with the self.monthlySalaryCostFigure
-}
+
 
 
 
