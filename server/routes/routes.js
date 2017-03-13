@@ -40,7 +40,7 @@ router.get('/budget',function(req,res) {
           res.sendStatus(500);
       } else {
           // SELECT * FROM task;
-          client.query('SELECT * FROM budget ORDER BY date_set ASC;', function(err, result) {
+          client.query('SELECT * FROM budget ORDER BY id DESC;', function(err, result) {
               done(); // close the connection db
               if (err) {
                   console.log(err);
@@ -67,7 +67,7 @@ router.post('/setNewBudget', function(req, res) {
             client.query('INSERT INTO budget (' +
               'date_set,' +
               'budget_amount) ' +
-              'VALUES  ($1,$2);',[current_date,budgetObject.value], function(err, result) {
+              'VALUES  (current_date,$1);',[budgetObject.value], function(err, result) {
                 done(); // close the connection db
                 if (err) {
                     console.log(err);

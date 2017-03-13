@@ -30,6 +30,11 @@ myApp.controller('HomeController',['DataFactory', function(DataFactory) {
     DataFactory.toggleActiveStatus(id);
   }
 
+self.getCurrentBudgetMax = function {
+  // get the array of past budget figures
+  //get the last (or the first value)
+  //compare with the self.monthlySalaryCostFigure
+}
 
 
 
