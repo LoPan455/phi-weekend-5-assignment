@@ -4,6 +4,7 @@ myApp.controller('HomeController',['DataFactory', function(DataFactory) {
   self.newEmployeeObject = {};
   self.monthlySalaryCost = DataFactory.monthlySalaryCost;
 
+
   self.addNewEmployee = function(){
     console.log('Controller addNewEmployee() is being called');
     DataFactory.addNewEmployee(self.newEmployeeObject);
@@ -20,6 +21,12 @@ myApp.controller('HomeController',['DataFactory', function(DataFactory) {
       var unroundedCost = (totalSalaryCost / 12);
       return unroundedCost.toFixed(2);
   };
+
+  self.deleteEmployee = function(id){
+    DataFactory.deleteEmployee(id);
+    console.log('deleteEmployee() reached, deleting employee', id);
+
+  }
 
 
 

@@ -34,7 +34,6 @@ router.get('/employees', function(req, res) {
 });
 
 // POST request to add a new employee
-
 router.post('/addNew', function(req, res) {
     console.log('hit the /data/addNew route');
     var employeeObject = req.body;
@@ -44,7 +43,7 @@ router.post('/addNew', function(req, res) {
             console.log(err);
             res.sendStatus(500);
         } else {
-            // SELECT * FROM task;
+
             client.query('INSERT INTO employees (' +
               'first_name,' +
               'last_name,' +
@@ -65,7 +64,29 @@ router.post('/addNew', function(req, res) {
     });
 });
 
-
+// DELETE request to delete an employee
+router.delete('/delete/:id', function(req, res) {
+    console.log('hit the /data/delete route');
+    var employeeIdToDelete = req.params.id;
+    console.log('we will remove employee ID ',employeeIdToDelete);
+    pool.connect(function(err, client, done) {
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        } else {
+            client.query('DELETE FROM employees WHERE employee_id = $1;',[employeeIdToDelete], function(err, result) {
+                done(); // close the connection db
+                if (err) {
+                    console.log(err);
+                    res.sendStatus(500); // the world exploded
+                } else {
+                    console.log(result.rows);
+                    res.sendStatus(202);
+                }
+            });
+        }
+    });
+});
 
 // PUT reqeust to change employee activation status
 router.put('/data/activate/', function(req, res) {

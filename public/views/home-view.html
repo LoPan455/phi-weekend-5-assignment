@@ -5,7 +5,7 @@
       <label>Employee ID<input ng-model="home.newEmployeeObject.employee_id" type="number" placeholder="Employee ID" />{{newEmployeeObject.employee_id}}</Label>
       <label>Employee First Name<input ng-model="home.newEmployeeObject.first_name" type="text" placeholder="Employee First Name" /></Label>
       <label>Employee Last Name<input ng-model="home.newEmployeeObject.last_name" type="text" placeholder="Employee Last Name" /></Label>
-      <label>Employee Title<input ng-model="home.newEmployeeObject.title" type="text" placeholder="Employee Title" /></Label>
+      <label>Employee Title<input ng-model="home.newEmployeeObject.employee_title" type="text" placeholder="Employee Title" /></Label>
       <label>Employee Annual Salary<input  ng-model="home.newEmployeeObject.annual_salary" type="number" placeholder="Employee Annual Salary" /></Label>
       <button ng-click="home.addNewEmployee()">Submit</button>
     </form>
@@ -20,6 +20,7 @@
         <th>Last Name</th>
         <th>Title</th>
         <th>Annual Salary</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -29,6 +30,7 @@
         <td>{{employee.last_name}}</td>
         <td>{{employee.title}}</td>
         <td>{{employee.annual_salary}}</td>
+        <td><button ng-click="home.deleteEmployee(employee.employee_id)">Delete</button></td>
       </tr>
     </tbody>
   </table>
