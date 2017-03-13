@@ -3,12 +3,16 @@ myApp.controller('HomeController',['DataFactory', function(DataFactory) {
   self.employeeList = DataFactory.employeeList;
   self.newEmployeeObject = {};
   self.monthlySalaryCost = DataFactory.monthlySalaryCost;
-  self.currentBudgetMax = DataFactory.pastBudgets;
+  self.pastBudgets = DataFactory.pastBudgets;
+
+  // add a new emlpoyee to the DB
   self.addNewEmployee = function(){
     console.log('Controller addNewEmployee() is being called');
     DataFactory.addNewEmployee(self.newEmployeeObject);
     self.newEmployeeObject = {}
   }
+
+
   self.monthlySalaryCostFigure = function(){
       var totalSalaryCost = 0; //holds the aggregate value of all employee annual salaries
       // for each employee object returned, increment the total salary spend
@@ -31,16 +35,18 @@ myApp.controller('HomeController',['DataFactory', function(DataFactory) {
     DataFactory.toggleActiveStatus(id);
   }
 
-self.getCurrentBudgetMax = function() {
-  // make an array of past budget figures
-  var budgetFiguresArray = [];
-  for (var i = 0; i < self.currentBudgetMax.pastBudgets.length; i++) {
-      budgetFiguresArray.push(self.currentBudgetMax.pastBudgets[i].budget_amount)
-    }
-  if (budgetFiguresArray.shift() > self.monthlySalaryCostFigure()) {
 
+self.getCurrentBudgetMax = function() {
+  //iterate through each object in the pastBudgets array coming from the factory
+  for (var i = 0; i < self.pastBudgets.pastBudgets.length; i++) {
+    //check to see iff the current monthly spend is greater than the current budget max
+    if (self.pastBudgets.pastBudgets > self.monthlySalaryCostFigure()){
+      return "over-budget";
     }
-    return 'true';
+  }
+
+
+
   }
 
 

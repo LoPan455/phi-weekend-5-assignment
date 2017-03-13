@@ -38,7 +38,7 @@
     </tbody>
   </table>
   <section id="monthly-cost">
-    <h2>Total Monthly Cost for All Employee Salaries: <span ng-if="home.getCurrentBudgetMax()" class="alert alert-danger">${{home.monthlySalaryCostFigure()}}</span></h2>
+    <h2>Total Monthly Cost for All Employee Salaries: <span ng-class="home.getCurrentBudgetMax()" ng-model="home.pastBudgets.pastBudgets">${{home.monthlySalaryCostFigure()}}</span></h2>
   </section>
 
   {{home.getCurrentBudgetMax()}}

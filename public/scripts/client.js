@@ -14,11 +14,6 @@ myApp.config(['$routeProvider', function($routeProvider) {
             controller: 'BudgetController',
             controllerAs: 'bc'
         })
-        .when ('/view-2', {
-            templateUrl: '/views/view_2.html',
-            controller: 'TwoController',
-            controllerAs: 'two'
-        })
         .otherwise ( {
             redirectTo: '/home'
         });
